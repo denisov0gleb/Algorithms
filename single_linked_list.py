@@ -30,7 +30,7 @@ class SingleLinkedList():
         if index == 0:
             self.insert_at_start(data)
             inserted_node_index = 0
-        elif index < self.length:        
+        else:  
             new_node = Node(data)
             counter = 0
             current_node = self.head
@@ -70,7 +70,8 @@ class SingleLinkedList():
             while node_counter + 1 < index:
                 temp_node = temp_node.next
                 node_counter += 1
-            temp_node.next = temp_node.next.next
+            nn = temp_node.next
+            temp_node.next = nn.next
             self.length -= 1
             removed_node_index = index
         return removed_node_index
