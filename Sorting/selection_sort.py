@@ -9,5 +9,4 @@ def selection_sort(array):
     return array
 
 
-
 print(selection_sort([1, 7, 5, 3, 0, 3, 10, 5]))

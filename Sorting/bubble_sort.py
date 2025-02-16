@@ -20,5 +20,5 @@ def bubble_sort_stupid(array):
     return array
 
 
-print(bubblesort([1, 7, 5, 3, 0, 3, 10, 5]))
-print(bubblesort_stupid([1, 7, 5, 3, 0, 3, 10, 5]))
+print(bubble_sort([1, 7, 5, 3, 0, 3, 10, 5]))
+print(bubble_sort_stupid([1, 7, 5, 3, 0, 3, 10, 5]))
