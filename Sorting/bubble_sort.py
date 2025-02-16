@@ -1,4 +1,4 @@
-def bubblesort(array):
+def bubble_sort(array):
     length = len(array)
     for end_ind in range(length - 1, 0, -1):
         isSorted = True
@@ -11,7 +11,7 @@ def bubblesort(array):
     return array
 
 
-def bubblesort_stupid(array):
+def bubble_sort_stupid(array):
     length = len(array)
     for end_ind in range(length - 1, 0, -1):
         for i in range(end_ind):
