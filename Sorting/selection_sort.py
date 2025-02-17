@@ -1,4 +1,8 @@
 def selection_sort(array):
+    """
+    Selection sort
+    Complexity: always O(n^2)
+    """
     length = len(array)
     for start_ind in range(length - 1):
         max_value_ind = 0

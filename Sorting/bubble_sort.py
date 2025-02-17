@@ -1,4 +1,11 @@
 def bubble_sort(array):
+    """
+    Bubble sort with a flag
+    Complexity: 
+                - worst case O(n^2)
+                - best case O(n)
+                - average case O(n^2)
+    """
     length = len(array)
     for end_ind in range(length - 1, 0, -1):
         isSorted = True
@@ -12,6 +19,10 @@ def bubble_sort(array):
 
 
 def bubble_sort_stupid(array):
+    """
+    Stupid Bubble sort
+    Complexity: always O(n^2)
+    """
     length = len(array)
     for end_ind in range(length - 1, 0, -1):
         for i in range(end_ind):

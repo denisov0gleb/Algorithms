@@ -8,6 +8,10 @@ class SimpleAndBinarySearch:
         self.number = choice(self.number_array)
 
     def simple_search_iterative(self, array: list, search_value) -> int:
+        """
+        Simple search
+        Complexity: always O(n)
+        """
         for ind, value in enumerate(array):
             if value == search_value:
                 return ind
@@ -23,6 +27,10 @@ class SimpleAndBinarySearch:
 
 
     def binary_search_iterative(self, array: list, search_value) -> int:
+        """
+        Binary search
+        Complexity: always O(log n)
+        """
         low_ind = 0
         high_ind = len(array) - 1
         while low_ind <= high_ind:
@@ -56,6 +64,10 @@ class SimpleAndBinarySearch:
 
 
     def binary_search_recursive(self, array: list, search_value, low = None, high = None) -> int:
+        """
+        Binary search
+        Complexity: always O(log n)
+        """
         low_ind = low if low != None else 0
         high_ind = high if high != None else len(array) - 1
         if low_ind <= high_ind:

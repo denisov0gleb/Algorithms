@@ -1,4 +1,11 @@
 def comb_sort(array):
+    """
+    Comb sort
+    Complexity: 
+                - worst case O(n^2)
+                - best case O(n * log n)
+                - average case O(n^2)
+    """
     length = len(array)
     step = length * 3 // 4
     isSwapped = False

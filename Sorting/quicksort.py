@@ -1,4 +1,11 @@
 def quicksort(array):
+    """
+    Quick sort
+    Complexity: 
+                - worst case O(n^2)
+                - best case O(n) or O(n * log n)
+                - average case O(n * log n)
+    """
     if len(array) <= 1:
         return array
     else:
@@ -17,6 +24,13 @@ def quicksort(array):
 
 
 def quicksort_bad(array):
+    """
+    Quick sort (bad)
+    Complexity: 
+                - worst case O(n^3)
+                - best case O(n^2 * log n)
+                - average case O(n^2 * log n)
+    """
     if len(array) < 2:
         return array
     else:

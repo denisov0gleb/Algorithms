@@ -1,4 +1,11 @@
 def cocktail_sort(array):
+    """
+    Cocktail sort
+    Complexity: 
+                - worst case O(n^2)
+                - best case O(n)
+                - average case O(n^2)
+    """
     length = len(array)
     for start_ind in range(0, length//2+1):
         max_value_ind = start_ind
