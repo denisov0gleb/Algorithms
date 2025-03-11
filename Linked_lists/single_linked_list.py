@@ -105,7 +105,7 @@ if __name__ == "__main__":
     SLL.insert_at_start("one")
     SLL.insert_at_end("three")
     SLL.insert_at_index("zero", 0)
-    SLL.insert_at_index("garbage", LL.get_length())
+    SLL.insert_at_index("garbage", SLL.get_length())
     SLL.print_all() # zero (0) -> one (1) -> Two (2) -> three (3) -> garbage (4) -> None 
     SLL.remove_at_index(4)
     SLL.update_at_index("two", 2)
