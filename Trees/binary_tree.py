@@ -9,56 +9,56 @@ class Tree:
     def __init__(self):
         self.root = None
 
-    def search_recursively(self, root, node):
-        if node is None or node.data == node:
-            return node
-        elif node.data > node:
-            return self.search_recursively(node.left, node)
+    def search_recursively(self, root, node_data):
+        if root is None or root.data == node_data:
+            return root
+        elif root.data > node_data:
+            return self.search_recursively(root.left, node_data)
         else:
-            return self.search_recursively(node.rigth, node)
+            return self.search_recursively(root.rigth, node_data)
         
-    def insert_node(self, node, node_data):
-        if node is None:
-            node = Node(node_data)
+    def insert_node(self, root, node_data):
+        if root is None:
+            root = Node(node_data)
         else:
-            if node.data > node_data:
-                node.left = self.insert_node(node.left, node_data)
-            elif node.data < node_data:
-                node.right = self.insert_node(node.right, node_data)
-        return node
+            if root.data > node_data:
+                root.left = self.insert_node(root.left, node_data)
+            elif root.data < node_data:
+                root.right = self.insert_node(root.right, node_data)
+        return root
 
-    def find_min(self, node):
-        if node.left is not None:
-            return self.find_min(node.left)
+    def find_min(self, root):
+        if root.left is not None:
+            return self.find_min(root.left)
         else:
-            return node
+            return root
 
-    def delete_recursively(self, node, node_data):
-        if node is None:
+    def delete_recursively(self, root, node_data):
+        if root is None:
             return None
         
-        if node.data > node_data:
-            node.left = self.delete_recursively(node.left, node_data)
-            return node
-        elif node.data < node_data:
-            node.right = self.delete_recursively(node.right, node_data)
-            return node
+        if root.data > node_data:
+            root.left = self.delete_recursively(root.left, node_data)
+            return root
+        elif root.data < node_data:
+            root.right = self.delete_recursively(root.right, node_data)
+            return root
 
-        if node.left is None:
-            return node.right
-        elif node.right is None:
-            return node.right
+        if root.left is None:
+            return root.right
+        elif root.right is None:
+            return root.right
         else:
-            min_data = self.find_min(node.right).data
-            node.data = min_data
-            node.right = self.delete_recursively(node.right, min_data)
-            return node
+            min_data = self.find_min(root.right).data
+            root.data = min_data
+            root.right = self.delete_recursively(root.right, min_data)
+            return root
 
-    def print_tree(self, node, level=0):
-        if node != None:
-            self.print_tree(node.right, level + 1)
-            print(' ' * 4 * level + '-> ' + str(node.data))
-            self.print_tree(node.left, level + 1)
+    def print_tree(self, root, level=0):
+        if root != None:
+            self.print_tree(root.right, level + 1)
+            print(' ' * 4 * level + '-> ' + str(root.data))
+            self.print_tree(root.left, level + 1)
 
 
 if __name__ == "__main__":
@@ -70,6 +70,7 @@ if __name__ == "__main__":
     tree.root = tree.insert_node(tree.root, 4)
     tree.root = tree.insert_node(tree.root, 5)
     tree.root = tree.insert_node(tree.root, 1)
+    tree.root = tree.insert_node(tree.root, 0)
 
-    # tree.root = tree.delete_recursively(tree.root, 4)
+    tree.root = tree.delete_recursively(tree.root, 4)
     tree.print_tree(tree.root)
