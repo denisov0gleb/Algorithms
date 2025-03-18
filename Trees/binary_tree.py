@@ -3,6 +3,7 @@ class Node:
         self.data = data
         self.left = None
         self.right = None
+        self.height = 1
 
 
 class Tree:
@@ -25,7 +26,7 @@ class Tree:
                 root.left = self.insert_node(root.left, node_data)
             elif root.data < node_data:
                 root.right = self.insert_node(root.right, node_data)
-        return root
+        return self.balance(root)
 
     def find_min(self, root):
         if root.left is not None:
@@ -60,17 +61,57 @@ class Tree:
             print(' ' * 4 * level + '-> ' + str(root.data))
             self.print_tree(root.left, level + 1)
 
+    def _height(self, node):
+        return node.height if node else 0
+    
+    def _fix_height(self, node):
+        node.height = max(self._height(node.left), self._height(node.right)) + 1
+
+    def _balance_factor(self, root):
+        return self._height(root.right) - self._height(root.left)
+
+
+    def _rotate_right(self, pivot_node):
+        next_parent = pivot_node.left
+        pivot_node.left = next_parent.right
+        next_parent.right = pivot_node
+        self._fix_height(pivot_node)
+        self._fix_height(next_parent)
+        return next_parent
+
+    def _rotate_left(self, pivot_node):
+        next_parent = pivot_node.right
+        pivot_node.right = next_parent.left
+        next_parent.left = pivot_node
+        self._fix_height(pivot_node)
+        self._fix_height(next_parent)
+        return next_parent
+
+    def balance(self, pivot_node):
+        self._fix_height(pivot_node)
+        if self._balance_factor(pivot_node) == 2:
+            if self._balance_factor(pivot_node.right) < 0:
+                pivot_node.right = self._rotate_right(pivot_node.right) # if big rotation is needed (clockwise -> counter clockwise)
+            return self._rotate_left(pivot_node)
+        
+        elif self._balance_factor(pivot_node) == -2:
+            if self._balance_factor(pivot_node.left) > 0:
+                pivot_node.left = self._rotate_left(pivot_node.left)
+            return self._rotate_right(pivot_node)
+        
+        return pivot_node # no balance is needed
+
 
 if __name__ == "__main__":
     tree = Tree()
-    tree.root = tree.insert_node(tree.root, 3)
-    tree.root = tree.insert_node(tree.root, 7)
-    tree.root = tree.insert_node(tree.root, 10)
-    tree.root = tree.insert_node(tree.root, 2)
-    tree.root = tree.insert_node(tree.root, 4)
     tree.root = tree.insert_node(tree.root, 5)
+    tree.root = tree.insert_node(tree.root, 3)
+    tree.root = tree.insert_node(tree.root, 6)
+    tree.root = tree.insert_node(tree.root, 2)
     tree.root = tree.insert_node(tree.root, 1)
     tree.root = tree.insert_node(tree.root, 0)
+    tree.root = tree.insert_node(tree.root, 7)
+    tree.root = tree.insert_node(tree.root, 4)
 
     tree.root = tree.delete_recursively(tree.root, 4)
     tree.print_tree(tree.root)
