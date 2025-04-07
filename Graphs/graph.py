@@ -16,7 +16,7 @@ class Graph():
                 self.add_node(neighbor_node, [node])
         return self.graph
     
-    
+
     def add_nodes_dict(self, node_dict):
         for node in node_dict:
             self.add_node(node, node_dict[node])        
@@ -68,20 +68,20 @@ class Graph():
 
 def test():
     g = Graph()
-    g.add_node(1, [9])
-    g.add_node(9, [])
-    g.add_node(10, [9])
-    g.add_connection(1, 10)
+    g.add_node('a', ['x'])
+    g.add_node('x', [])
+    g.add_node('y', ['x'])
+    g.add_connection('a', 'y')
     g.print_graph()
-    g.delete_connection(1, 9)
-    g.print_graph()
-
-    g.delete_node(10)
-    g.add_nodes_dict({2: [1, 3], 4: [5, 6, 1, 1], 1: [2, 4]})
+    g.delete_connection('a', 'x')
     g.print_graph()
 
-    print(f"Is 1 connected to 6? {g.is_connected(1, 6)}")
-    print(f"Is 1 connected to 9? {g.is_connected(1, 9)}")
+    g.delete_node('y')
+    g.add_nodes_dict({'b': ['a', 'c'], 'd': ['e', 'f', 'a', 'a'], 'a': ['b', 'd']})
+    g.print_graph()
+
+    print(f"Is 'a' connected to 'f'? {g.is_connected('a', 'f')}")
+    print(f"Is 'a' connected to 'x'? {g.is_connected('a', 'x')}")
 
 
 
