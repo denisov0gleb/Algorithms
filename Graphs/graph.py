@@ -96,6 +96,7 @@ class Weighted_Graph():
         print("-"*10)
 
 
+
 def test_unweighted_graph():
     g = Unweighted_Graph()
     g.add_node('a', ['x'])
@@ -128,4 +129,5 @@ def test_weighted_graph():
 
 
 if __name__ == "__main__":
-    test_weighted_graph()
+    test_unweighted_graph()
+    # test_weighted_graph()
