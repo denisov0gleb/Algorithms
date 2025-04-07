@@ -1,4 +1,4 @@
-class Graph():
+class Unweighted_Graph():
     def __init__(self):
         self.graph = {}
 
@@ -60,14 +60,44 @@ class Graph():
 
 
     def print_graph(self):    
-        for key in self.graph:
-            print(f"{key} -> {self.graph[key]}")
+        for node in self.graph:
+            print(f"{node} -> {self.graph[node]}")
         print("-"*10)
 
 
 
-def test():
-    g = Graph()
+class Weighted_Graph():
+    def __init__(self):
+        self.graph = {}
+
+
+    def add_node(self, node, links_dict):
+        if not self.graph or node not in self.graph:
+            self.graph[node] = links_dict
+        else:
+            self.graph[node].update(links_dict)
+        for neighbor_node in links_dict:
+            if neighbor_node in self.graph:
+                self.graph[neighbor_node].update({node: links_dict[neighbor_node]})
+            else:
+                self.add_node(neighbor_node, {node: links_dict[neighbor_node]})
+        return self.graph
+    
+
+    def add_nodes_dict(self, node_dict):
+        for node in node_dict:
+            self.add_node(node, node_dict[node])        
+        return self.graph
+
+
+    def print_graph(self):    
+        for node in self.graph:
+            print(f"{node} -> {self.graph[node]}")
+        print("-"*10)
+
+
+def test_unweighted_graph():
+    g = Unweighted_Graph()
     g.add_node('a', ['x'])
     g.add_node('x', [])
     g.add_node('y', ['x'])
@@ -84,6 +114,18 @@ def test():
     print(f"Is 'a' connected to 'x'? {g.is_connected('a', 'x')}")
 
 
+def test_weighted_graph():
+    gw = Weighted_Graph()
+    gw.add_node('a', {'b' : 1, 'c' : 2})
+    gw.print_graph()
+
+    gw.add_node('c', {'d' : 10, 'a' : 5})
+    gw.print_graph()
+
+    gw.add_nodes_dict({'e': {'a' : 3, 'b' : 5}, 'f' : {'g' : 12, 'b' : 2}})
+    gw.print_graph()
+
+
 
 if __name__ == "__main__":
-    test()
+    test_weighted_graph()
