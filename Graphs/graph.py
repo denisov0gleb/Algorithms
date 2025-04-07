@@ -96,6 +96,22 @@ class Weighted_Graph():
         print("-"*10)
 
 
+    def dijkstra(self, start_node):
+        distances = {node: float('inf') for node in self.graph}
+        distances[start_node] = 0
+        queue = [(0, start_node)]
+
+        while queue:
+            current_distance, current_node = queue.pop(0)
+            if current_distance <= distances[current_node]:
+                for neighbor_node, weight in self.graph[current_node].items():
+                    neighbor_distance = current_distance + weight
+
+                    if neighbor_distance < distances[neighbor_node]:
+                        distances[neighbor_node] = neighbor_distance
+                        queue.append((neighbor_distance, neighbor_node))
+        return distances
+
 
 def test_unweighted_graph():
     g = Unweighted_Graph()
@@ -125,9 +141,10 @@ def test_weighted_graph():
 
     gw.add_nodes_dict({'e': {'a' : 3, 'b' : 5}, 'f' : {'g' : 12, 'b' : 2}})
     gw.print_graph()
+    print(gw.dijkstra('a'))
 
 
 
 if __name__ == "__main__":
-    test_unweighted_graph()
-    # test_weighted_graph()
+    # test_unweighted_graph()
+    test_weighted_graph()
