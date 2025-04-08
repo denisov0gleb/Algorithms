@@ -59,6 +59,32 @@ class Unweighted_Graph():
         return self.graph
 
 
+    def BFS(self, start_node):
+        distances = {}
+        for node in self.graph:
+            distances[node] = [float('inf'), None]
+        distances[start_node] = [0, start_node]
+        queue = [(0, start_node)]
+        while queue:
+            parent_value, current_node = queue.pop(0)
+            for neighbor_node in self.graph[current_node]:
+                if parent_value + 1 < distances[neighbor_node][0]:
+                    distances[neighbor_node] = [ parent_value + 1, current_node ]
+                    queue.append( (distances[neighbor_node][0],  neighbor_node) )
+        return distances
+
+
+    def print_BFS(self, start_node, search_node, distances):
+        path = []
+        if distances[search_node][0] < float('inf'):
+            current_node = search_node
+            while current_node != start_node:
+                path.insert(0, current_node)
+                current_node = distances[current_node][1]
+            path.insert(0, start_node)
+        return path
+
+
     def print_graph(self):    
         for node in self.graph:
             print(f"{node} -> {self.graph[node]}")
@@ -130,6 +156,9 @@ def test_unweighted_graph():
     print(f"Is 'a' connected to 'f'? {g.is_connected('a', 'f')}")
     print(f"Is 'a' connected to 'x'? {g.is_connected('a', 'x')}")
 
+    dist = g.BFS('a')
+    print(f"Path from 'a' to 'f' is {g.print_BFS('a', 'f', dist)}")
+
 
 def test_weighted_graph():
     gw = Weighted_Graph()
@@ -146,5 +175,5 @@ def test_weighted_graph():
 
 
 if __name__ == "__main__":
-    # test_unweighted_graph()
-    test_weighted_graph()
+    test_unweighted_graph()
+    # test_weighted_graph()
