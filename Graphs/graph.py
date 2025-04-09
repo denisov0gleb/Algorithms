@@ -125,6 +125,7 @@ class Weighted_Graph():
     def dijkstra(self, start_node):
         distances = {node: float('inf') for node in self.graph}
         distances[start_node] = 0
+        parents = {node: None for node in self.graph}
         queue = [(0, start_node)]
 
         while queue:
@@ -135,8 +136,21 @@ class Weighted_Graph():
 
                     if neighbor_distance < distances[neighbor_node]:
                         distances[neighbor_node] = neighbor_distance
+                        parents[neighbor_node] = current_node
                         queue.append((neighbor_distance, neighbor_node))
-        return distances
+        return distances, parents
+    
+
+    def print_dijkstra(self, start_node, end_node, parents):
+        path = []
+        if start_node in parents and end_node in parents and parents[end_node]:
+            current_node = end_node
+            while parents[current_node]:
+                path.insert(0, current_node)
+                current_node = parents[current_node]
+            path.insert(0, start_node)
+        return path
+
 
 
 def test_unweighted_graph():
@@ -153,11 +167,11 @@ def test_unweighted_graph():
     g.add_nodes_dict({'b': ['a', 'c'], 'd': ['e', 'f', 'a', 'a'], 'a': ['b', 'd']})
     g.print_graph()
 
-    print(f"Is 'a' connected to 'f'? {g.is_connected('a', 'f')}")
-    print(f"Is 'a' connected to 'x'? {g.is_connected('a', 'x')}")
+    print(f"BFS. Is 'a' connected to 'f'? {g.is_connected('a', 'f')}")
+    print(f"BFS. Is 'a' connected to 'x'? {g.is_connected('a', 'x')}")
 
     dist = g.BFS('a')
-    print(f"Path from 'a' to 'f' is {g.print_BFS('a', 'f', dist)}")
+    print(f"BFS. Path from 'a' to 'f' is {g.print_BFS('a', 'f', dist)}")
 
 
 def test_weighted_graph():
@@ -170,10 +184,13 @@ def test_weighted_graph():
 
     gw.add_nodes_dict({'e': {'a' : 3, 'b' : 5}, 'f' : {'g' : 12, 'b' : 2}})
     gw.print_graph()
-    print(gw.dijkstra('a'))
+    d, p = gw.dijkstra('a')
+    print(f"Dijkstra for 'a': {d}")
+    print(f"Dijkstra. Path from 'a' to 'g' is {gw.print_dijkstra('a', 'g', p)}")
 
 
 
 if __name__ == "__main__":
     test_unweighted_graph()
-    # test_weighted_graph()
+    print()
+    test_weighted_graph()
