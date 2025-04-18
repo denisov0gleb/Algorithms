@@ -19,9 +19,12 @@ class SingleLinkedList():
     def insert_at_end(self, data) -> int:
         new_node = Node(data)
         current_node = self.head
-        while current_node.next:
-            current_node = current_node.next
-        current_node.next = new_node
+        if current_node:
+            while current_node.next:
+                current_node = current_node.next
+            current_node.next = new_node
+        else:
+            self.head = new_node
         self.length += 1
         return self.length - 1
     
@@ -101,7 +104,7 @@ class SingleLinkedList():
 
 if __name__ == "__main__":
     SLL = SingleLinkedList()
-    SLL.insert_at_start("Two")
+    SLL.insert_at_end("Two")
     SLL.insert_at_start("one")
     SLL.insert_at_end("three")
     SLL.insert_at_index("zero", 0)
